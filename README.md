@@ -1,7 +1,7 @@
 # Final-Project-Transforming-and-Analyzing-Data-with-SQL
 
 ## Project/Goals
-(fill in your description and goals here)
+My project goals is to follow the lecture.
 
 ## Process
 ### (your step 1)
