@@ -2,7 +2,9 @@ What are your risk areas? Identify and describe them.
 
 1. Before dropping any column, I need to make sure there is no value in it. I use the ```max()``` and ```min()``` before deleting them. They should both return ***null*** to ensure there is no value. If either of them is not ***null***, a further step is needed to look up how many values are there and does those values make any sense in answering the questions.
 
-2. There when counting on the product_category or grouping by product_catory, I find some of the product_category value is not having a complete path that follows the format "Home/%". Therefore, I need to SELECT the values using LIKE and fix the short path with a corresponding full path. For example:
+2. The column transaction_revenue has 4 values, which need to be double check before dropping.
+
+3. There when counting on the product_category or grouping by product_catory, I find some of the product_category value is not having a complete path that follows the format "Home/%". Therefore, I need to SELECT the values using LIKE and fix the short path with a corresponding full path. For example:
 
 | Short Category | Full Category | But Avoiding |
 | ----------- | ----------- | ----------- | 
@@ -10,9 +12,7 @@ What are your risk areas? Identify and describe them.
 | Bags | Home/Bags/ | Home/Limited Supply/Bags/  |
 | Apparel | Home/Apparel/ | Home/Apparel/Men's/ |
 
-3. Before deleting duplicated rows, I want to investigate how many duplicated rows each individual row has.
-
-4. Some products do not have a correctly named category, and there will be errors when counting them.
+4. Before deleting duplicated rows, I want to investigate how many duplicated rows each individual row has.
 
 5. Make sure the currency is the same before calculating revenue-related items.
 
@@ -37,7 +37,23 @@ Result:
 
 ---
 
-2. Fixing the product_category values:
+2. When deleting the the column ***transaction_renenue*** in table **all_sessions**, I did a check of the existing 4 values. I compare those values to that in the column ***total_transaction_renenue***. I found that they are the same value. Therefore, column ***transaction_renenue*** can be deleted with confidence.
+
+SQL Queries:
+```SQL
+SELECT transaction_revenue, total_transaction_revenue
+FROM public.all_sessions
+WHERE transaction_revenue is not null or total_transaction_revenue is not null;
+```
+
+Result:
+<div style="text-align:center">
+<img src="./images/QA3.png"  width="520">
+</div>
+
+---
+
+3. Fixing the product_category values:
 
 SQL Queries:
 ```SQL
@@ -80,22 +96,6 @@ WHERE v2_product_category = 'Bottles/'
 "Home/Drinkware/Water Bottles and Tumblers/"
 */
 ```
-
----
-
-3. When deleting the the column ***transaction_renenue*** in table **all_sessions**, I did a check of the existing 4 values. I compare those values to that in the column ***total_transaction_renenue***. I found that they are the same value. Therefore, column ***transaction_renenue*** can be deleted with confidence.
-
-SQL Queries:
-```SQL
-SELECT transaction_revenue, total_transaction_revenue
-FROM public.all_sessions
-WHERE transaction_revenue is not null or total_transaction_revenue is not null;
-```
-
-Result:
-<div style="text-align:center">
-<img src="./images/QA3.png"  width="520">
-</div>
 
 ---
 

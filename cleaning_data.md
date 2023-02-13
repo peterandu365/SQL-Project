@@ -110,6 +110,16 @@ CREATE TABLE sales_report (
 | analytics | visit_start_time | visit_start_timestamp |
 
 After renaming, the code looks like the following. From the syntax highlighting, it can be confirmed that there are no more conflicts with the preserved keywords.
+
+Another consideration that needs to be mentioned here is the choice of the datatype for full_visitor_id:
+|  | Value | In scientific notation |
+| ----------- | ----------- | ----------- | 
+| max allowed as BIGINT  | 9223372036854775807 | 9.2234E+18 |
+| max in full_visitor_id | 9999679083512798585 | 9.9997E+18 |
+
+Therefore, ***full_visitor_id*** needs to be in the VARCHAR type.
+
+
 ```SQL
 -- create tables
 CREATE TABLE all_sessions (
@@ -432,3 +442,25 @@ SET unit_price = unit_price / 1e6;
 | all_sessions | city | some values are 'not available in demo dataset' |
 | all_sessions | transaction_revenue | only 4 valid value  |
 | all_sessions | v2_product_category | incomplete path |
+
+Incomplete category value in table ***all_sessions***, and they need to be transformed to the corresponding full category name:
+| Incomplete / Wrong | Complete | 
+| ----------- | ----------- | 
+| Headgear | Home/Apparel/Headgear/ |
+| Bottles/ | Home/Drinkware/Water Bottles and Tumblers/ |
+| Lifestyle | Home/Lifestyle/ |
+| Lifestyle/ | Home/Lifestyle/ |
+| Housewares | Home/Accessories/Housewares/ |
+| Drinkware | Home/Drinkware/ |
+| Home/Accessories/Drinkware/ | Home/Drinkware/ |
+| Apparel | Home/Apparel/ |
+| Bags | Home/Bags/ |
+| Electronics | Home/Electronics/ |
+| Office | Home/Office/ |
+| Waze | Home/Shop by Brand/Waze/ |
+| YouTube | Home/Shop by Brand/YouTube/ |
+| Wearables/Men's T-Shirts/ | Home/Apparel/Men's/Men's-T-Shirts/ |
+| Nest-USA | Home/Nest/Nest-USA/ |
+| YouTube | Home/Shop by Brand/YouTube/ |
+| Home/Brands/Android/ | Home/Shop by Brand/Android/ |
+| 'Home/Brands/YouTube/ | Home/Shop by Brand/YouTube/ |
