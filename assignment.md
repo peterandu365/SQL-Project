@@ -1,6 +1,6 @@
 Follow the instructions below to complete this project.
 
-## Part 1: Loading csv Files into Database
+## Part 1: Loading CSV Files into the Database
 
 Create a new PostgreSQL database called `ecommerce`. Set up tables for each .csv file by following [these instructions](https://www.postgresqltutorial.com/postgresql-tutorial/import-csv-file-into-posgresql-table/)
 
