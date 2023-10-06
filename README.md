@@ -1,4 +1,4 @@
-# Final-Project-Transforming-and-Analyzing-Data-with-SQL
+# E-Commerce Data Analysis using SQL
 
 ## Project/Goals
 My project goal is to:
